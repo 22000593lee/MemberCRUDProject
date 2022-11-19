@@ -1,27 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@page import="com.crud.dao.BoardDAO, com.crud.bean.BoardVO"%>
+ <%@page import="com.example.dao.MemberDAO, com.example.bean.MemberVO"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Edit Form</title>
+	<meta charset="UTF-8">
+	<title>Edit Form</title>
+	<link rel="stylesheet" href="member.css">
 </head>
 <body>
 
 <%
-	BoardDAO boardDAO = new BoardDAO();
-	String id=request.getParameter("id");	
-	BoardVO u=boardDAO.getBoard(Integer.parseInt(id));
+	MemberDAO memberDAO = new MemberDAO();
+	String id=request.getParameter("id");
+	MemberVO u=memberDAO.getMember(Integer.parseInt(id));
 %>
 
 <h1>Edit Form</h1>
-<form action="editpost.jsp" method="post">
-<input type="hidden" name="seq" value="<%=u.getSeq() %>"/>
+<form action="edit_ok.jsp" method="post" enctype="multipart/form-data">
+<input type="hidden" name="sid" value="<%=u.getSid() %>"/>
 <table>
-<tr><td>Title:</td><td><input type="text" name="title" value="<%= u.getTitle()%>"/></td></tr>
-<tr><td>Writer:</td><td><input type="text" name="writer" value="<%= u.getWriter()%>" /></td></tr>
-<tr><td>Content:</td><td><textarea cols="50" rows="5" name="content"><%= u.getContent()%></textarea></td></tr>
+	<tr><td>User ID:</td><td><input type="text" name="userid" value="<%= u.getUserid()%>"/></td></tr>
+	<tr><td>User name:</td><td><input type="text" name="username" value="<%= u.getUsername()%>"/></td></tr>
+	<tr><td>Email address:</td><td><input type="text" name="email" value="<%= u.getEmail()%>"/></td></tr>
+	<tr><td>Photo:</td><td><input type="file" name="photo" value="<%= u.getPhoto()%>"/></td></tr>
+	<tr><td>Detail:</td><td><textarea cols="50" rows="5" name="detail" value="<%= u.getDetail()%>"></textarea></td></tr>
+
 <tr><td colspan="2"><input type="submit" value="Edit Post"/>
 <input type="button" value="Cancel" onclick="history.back()"/></td></tr>
 </table>
